@@ -78,14 +78,29 @@ Evaluasi unjuk kerja User Space Filesystem (FUSE)
 ## Soal 3
 
 > Filter sehingga wireshark hanya menampilkan paket yang menuju port 80!
+Untuk menampilkan paket yang menuju port 80
+
+```
+tcp.dstport == 80 || udp.dstport == 80
+```
 
 ## Soal 4
 
 > Filter sehingga wireshark hanya mengambil paket yang berasal dari port 21!
+Untuk menampilkan paket yang dari port 21
+
+```
+tcp.srcport == 21 || udp.srcport == 21
+```
 
 ## Soal 5
 
 > Filter sehingga wireshark hanya mengambil paket yang berasal dari port 443!
+Untuk menampilkan paket yang dari port 443
+
+```
+tcp.srcport == 443 || udp.srcport == 443
+```
 
 ## Soal 6
 
