@@ -12,9 +12,68 @@
 
 > Sebutkan web server yang digunakan pada "monta.if.its.ac.id"!
 
+a. Melihat semua request dan response dengan protokol http pada host `monta.if.its.ac.id` dengan display filter sebagai berikut:
+
+```
+http.host == monta.if.its.ac.id
+```
+
+![1.a](/screenshot/1.a.png)
+
+b. Melihat detail semua request yang mengarah ke `monta.if.its.ac.id` dengan klik kanan pada salah satu traffic, selanjutnya memilih opsi `“Follow” > “TCP Stream”`. Selanjutnya hasil di save ke dalam bentuk txt dengan nama `“monta_tcp_stream.txt”`.
+
+![1.b](/screenshot/1.b.png)
+
+c. Untuk mendapatkan hasil secara lengkap, maka dilakukan `grep` pada detail request dan response yang telah disimpan sebelumnya, dengan perintah sebagai berikut:
+
+```
+grep 'Server:' monta_tcp_stream.txt > web_servers.txt
+```
+
+d. Didapat hasil semua webserver yang digunakan adalah `nginx/1.10.3`. Hasil yang didapat pada `web_servers.txt` adalah sebagai berikut:
+
+```
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+Server: nginx/1.10.3
+```
+
 ## Soal 2
 
 > Ishaq sedang bingung mencari topik ta untuk semester ini , lalu ia datang ke website monta dan menemukan detail topik pada website “monta.if.its.ac.id” , judul TA apa yang dibuka oleh ishaq ?
+
+a. Melakukan pengecekan pada website `monta.if.its.ac.id`, didapatkan bahwa URL untuk mengakses detail topik TA adalah sebagai berikut:
+
+```
+/index.php/topik/detailTopik/{id}
+```
+
+b. Melakukan filtering berdasarkan `host` dan `uri` dengan filter sebagai berikut:
+
+```
+http.host == monta.if.its.ac.id && http.request.uri contains "/index.php/topik/detailTopik/"
+```
+
+![2.b](/screenshot/2.b.png)
+
+c. Memilih request yang telah di filter, dan export dalam bentuk HTML.
+
+![2.c](/screenshot/2.c.png)
+
+d. Membuka file HTML
+
+![2.d](/screenshot/2.d.png)
+
+e. Didapatkan bahwa judul topik yang dilihat oleh Ishaq adalah:
+
+```
+Evaluasi unjuk kerja User Space Filesystem (FUSE)
+```
 
 ## Soal 3
 
