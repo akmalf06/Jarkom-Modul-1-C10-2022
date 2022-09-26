@@ -146,17 +146,55 @@ Dapat kita lihat pada kolom Source bahwa wireshark menampilkan semua paket yang 
 
 > Telusuri aliran paket dalam file .pcap yang diberikan, cari informasi berguna berupa percakapan antara dua mahasiswa terkait tindakan kecurangan pada kegiatan praktikum. Percakapan tersebut dilaporkan menggunakan protokol jaringan dengan tingkat keandalan yang tinggi dalam pertukaran datanya sehingga kalian perlu menerapkan filter dengan protokol yang tersebut.
 
+Clue:
+1. Percakapan dengan protokol yang handal dalam transfer data = TCP
+2. Terjadi percakapan, artinya terdapat 2 port berbeda yang saling bertukar informasi
+   
+Solusi:
+```
+tcp.dstport != tcp.srcport
+```
+
+Dengan follow TCP Stream, didapat percakapan sebagai berikut:
+
+![8](/screenshot/8.png)
+
+Dari percakapan tersebut, didapat informasi:
+1. File yang dikirim dalam bentuk salted yang dapat dideskripsi dengan metode des3
+2. Password untuk decrypt file adalah nama karakter anime kembar 5
+3. Pengiriman file melewati port 9002
+
 ## Soal 9
 
 > Terdapat laporan adanya pertukaran file yang dilakukan oleh kedua mahasiswa dalam percakapan yang diperoleh, carilah file yang dimaksud! Untuk memudahkan laporan kepada atasan, beri nama file yang ditemukan dengan format [nama_kelompok].des3 dan simpan output file dengan nama “flag.txt”.
+
+Clue:
+1. Percakapan file salah satunya melalui port 9002
+
+Solusi:
+```
+tcp.dstport != tcp.srcport && tcp.port == 9002
+```
+
+Dengan follow TCP Stream, didapat file salted sebagai berikut:
+
+![9](/screenshot/9.png)
+
+File tersebut didownload dari bentuk raw-nya. Selanjutnya di decrypt dengan metode des3, didapatkan hasil:
+```
+JaRkOm2022{8uK4N_CtF_k0k_h3h3h3}
+```
 
 ## Soal 10
 
 > Temukan password rahasia (flag) dari organisasi bawah tanah yang disebutkan di atas!
 
+Dengan clue yang ada, didapat bahwa password untuk decrypt adalah:
+```
+nakano
+```
+
 ## Kendala
 
 Berikut adalah kendala yang kami alami dalam mengerjakan praktikum modul 1 ini:
-
--
--
+- Tidak ada
